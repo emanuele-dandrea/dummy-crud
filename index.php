@@ -4,7 +4,7 @@ require_once __DIR__ . '/models/Product.php';
 ?>
 
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-bs-theme="dark">
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -47,6 +47,21 @@ require_once __DIR__ . '/models/Product.php';
             integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI"
             crossorigin="anonymous"
         >
+        </script>
+
+        <script>
+            // Popper tooltips
+            const tooltipTriggerList = document.querySelectorAll('[title]')
+            const tooltipList = [...tooltipTriggerList].map(tooltipTriggerEl => new bootstrap.Tooltip(tooltipTriggerEl))
+
+            // Theme follow system
+            function setTheme(isDark) {
+                document.documentElement.dataset.bsTheme = isDark ? 'dark' : 'light';
+            }
+
+            const isDark = window.matchMedia('(prefers-color-scheme: dark)');
+            isDark.addEventListener('change', (e) => setTheme(e.matches));
+            setTheme(isDark.matches);
         </script>
     </body>
 </html>
