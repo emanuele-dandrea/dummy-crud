@@ -37,6 +37,11 @@
                         data-bs-toggle="modal"
                         data-bs-target="#editProduct"
                         title="Edit this entry"
+                        data-id="<?= $row['id'] ?>"
+                        data-name="<?= htmlspecialchars($row['name']) ?>"
+                        data-description="<?= htmlspecialchars($row['description']) ?>"
+                        data-price="<?= $row['price'] ?>"
+                        data-category="<?= $row['category_id'] ?>"
                     >
                         <i class="bi bi-pen-fill"></i> Edit
                     </button>
