@@ -17,6 +17,19 @@ require_once __DIR__ . '/models/Product.php';
             rel="stylesheet"
             href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css"
         >
+
+        <script>
+            // Theme adapt to system
+            function setTheme(isDark) {
+                document.documentElement.dataset.bsTheme = isDark ? 'dark' : 'light';
+            }
+
+            const isDark = window.matchMedia('(prefers-color-scheme: dark)');
+            isDark.addEventListener('change', (e) => setTheme(e.matches));
+            setTheme(isDark.matches);
+
+        </script>
+
         <!-- Bootstrap CSS minified -->
         <link
             href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css"
@@ -53,15 +66,6 @@ require_once __DIR__ . '/models/Product.php';
             // Popper tooltips
             const tooltipTriggerList = document.querySelectorAll('[title]')
             const tooltipList = [...tooltipTriggerList].map(tooltipTriggerEl => new bootstrap.Tooltip(tooltipTriggerEl))
-
-            // Theme follow system
-            function setTheme(isDark) {
-                document.documentElement.dataset.bsTheme = isDark ? 'dark' : 'light';
-            }
-
-            const isDark = window.matchMedia('(prefers-color-scheme: dark)');
-            isDark.addEventListener('change', (e) => setTheme(e.matches));
-            setTheme(isDark.matches);
         </script>
     </body>
 </html>
