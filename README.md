@@ -42,4 +42,4 @@ database: crud
 Just put the project folder to `C:\xampp\htdocs\` (path for Windows), and visualize it in your browser
 at `http://localhost/your-project-name`. 
 
-> Remember to adapt the private member variables in `config/Database.php` with XAMPP.
+> Remember to adapt the private member variables in `/config/Database.php` with XAMPP MySQL configuration.
