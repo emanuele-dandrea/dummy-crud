@@ -1,3 +1,11 @@
+<?php
+session_start();
+if (isset($_SESSION['user_id'])) {
+    header('Location: ../');
+    exit;
+}
+?>
+
 <?php define('INCLUDED', true); ?>
 
 <!DOCTYPE html>
@@ -35,25 +43,23 @@
 
   <main>
     <div class="width padding">
-      <form action="">
+      <form action="../actions/register_user.php" id="registerForm" method="post" novalidate>
         <h2 class="text-center">Register</h2>
         <div class="mb-3">
           <label for="username" class="form-label">Username</label>
-          <input type="text" class="form-control" id="username" name="username">
+          <input type="text" class="form-control" id="username" name="username" required maxlength="50" minlength="3" placeholder="marco.rossi">
           <div class="invalid-feedback">
-            Invalid username.
+            Username must be between 3 and 50 characters.
           </div>
         </div>
         <div class="mb-3">
           <label for="password" class="form-label">Password</label>
           <div class="input-group">
-            <input type="password" class="form-control" id="password" name="password">
-            <div class="invalid-feedback">
-              Invalid password.
-            </div>
+            <input type="password" class="form-control" id="password" name="password" required minlength="8">
             <button class="btn btn-outline-secondary" type="button" id="togglePassword" title="Show password"><i
                 class="bi bi-eye-fill" id="toggleIcon"></i></button>
-          </div>
+          </div>         
+          <div class="invalid-feedback" id="passwordFeedback"></div>
         </div>
         <div class="col-12 text-center mb-3">
           <button class="btn btn-primary" type="submit">Register</button>
@@ -68,6 +74,8 @@
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"
     integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous">
     </script>
+
+  <?php include __DIR__ . '/../includes/toasts.php'; ?>
 
   <script>
     // Popper tooltips
@@ -93,6 +101,30 @@
 
     });
 
+    document.getElementById('registerForm').addEventListener('submit', e => {
+      const form     = e.target;
+      const password = document.getElementById('password');
+      const feedback = document.getElementById('passwordFeedback');
+
+      if (!form.checkValidity()) {
+        e.preventDefault();
+        e.stopPropagation();
+        if (password.validity.valueMissing || password.validity.tooShort) {
+          feedback.textContent = 'Password must be at least 8 characters.';
+          feedback.style.display = 'block'; 
+        }
+      } 
+      form.classList.add('was-validated');
+    });
+
+    document.getElementById('password').addEventListener('input', () => {
+      const password = document.getElementById('password');
+      const feedback = document.getElementById('passwordFeedback');
+      if (password.validity.valid) {
+        feedback.textContent = '';
+        feedback.style.display = 'none';
+      }
+    });
   </script>
 </body>
 

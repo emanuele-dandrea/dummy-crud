@@ -1,3 +1,11 @@
+<?php
+session_start();
+if (isset($_SESSION['user_id'])) {
+    header('Location: ../');
+    exit;
+}
+?>
+
 <?php define('INCLUDED', true); ?>
 
 <!DOCTYPE html>
@@ -35,25 +43,24 @@
 
   <main>
     <div class="width padding">
-      <form action="">
+      <form action="../actions/login_user.php" method="post" id="loginForm" novalidate>
         <h2 class="text-center">Log-in</h2>
         <div class="mb-3">
           <label for="username" class="form-label">Username</label>
-          <input type="text" class="form-control" id="username" name="username">
+          <input type="text" class="form-control" id="username" name="username" required>
           <div class="invalid-feedback">
-            Invalid username.
+            Username is required.
           </div>
         </div>
         <div class="mb-3">
           <label for="password" class="form-label">Password</label>
           <div class="input-group">
-            <input type="password" class="form-control" id="password" name="password">
-            <div class="invalid-feedback">
-              Invalid password.
-            </div>
+            <input type="password" class="form-control" id="password" name="password" required>
             <button class="btn btn-outline-secondary" type="button" id="togglePassword" title="Show password"><i
-                class="bi bi-eye-slash-fill" id="toggleIcon"></i></button>
+              class="bi bi-eye-fill" id="toggleIcon"></i>
+            </button>
           </div>
+          <div class="invalid-feedback" id="passwordFeedback"></div>
         </div>
         <div class="col-12 mb-3 text-center">
           <button class="btn btn-primary" type="submit">Login <i class="bi bi-box-arrow-in-right"></i></button>
@@ -68,6 +75,8 @@
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"
     integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous">
     </script>
+
+  <?php include __DIR__ . '/../includes/toasts.php'; ?>
 
   <script>
     // Popper tooltips
@@ -91,6 +100,31 @@
 
       bootstrap.Tooltip.getOrCreateInstance(btn).hide();
 
+    });
+
+    document.getElementById('loginForm').addEventListener('submit', e => {
+      const form     = e.target;
+      const password = document.getElementById('password');
+      const feedback = document.getElementById('passwordFeedback');
+
+      if (!form.checkValidity()) {
+        e.preventDefault();
+        e.stopPropagation();
+        if (password.validity.valueMissing) {
+          feedback.textContent = 'Password is required.';
+          feedback.style.display = 'block';
+        }
+      }
+
+      form.classList.add('was-validated');
+    });
+
+    document.getElementById('password').addEventListener('input', () => {
+      const password = document.getElementById('password');
+      const feedback = document.getElementById('passwordFeedback');
+      if (password.value.length > 0) {
+        feedback.style.display = 'none';
+      }
     });
   </script>
 </body>
