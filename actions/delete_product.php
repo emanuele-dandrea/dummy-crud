@@ -5,7 +5,8 @@ require_once __DIR__ . '/../models/Product.php';
 $id = filter_input(INPUT_GET, 'id', FILTER_VALIDATE_INT);
 
 if (!$id) {
-    header('Location: ../');
+    http_response_code(404);
+    include __DIR__ . '/../404.html';
     exit;
 }
 

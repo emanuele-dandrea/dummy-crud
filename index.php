@@ -1,5 +1,7 @@
 <?php
-require_once __DIR__ . '/config/Database.php'; 
+define('INCLUDED', true);
+
+require_once __DIR__ . '/config/Database.php';
 require_once __DIR__ . '/models/Product.php';
 require_once __DIR__ . '/models/Category.php';
 ?>
@@ -49,9 +51,10 @@ require_once __DIR__ . '/models/Category.php';
         </main>
 
         <?php
+
         include __DIR__ . '/includes/modals/modal_create.php';
         include __DIR__ . '/includes/modals/modal_edit.php';
-       
+
         include __DIR__ . '/includes/footer.php';
         ?>
        
@@ -79,7 +82,7 @@ require_once __DIR__ . '/models/Category.php';
                     if (!form.checkValidity()) {
                         e.preventDefault();
                         e.stopPropagation();
-                    }
+                    }                                               
                     form.classList.add('was-validated');
                 });
             });
