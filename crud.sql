@@ -23,6 +23,16 @@ CREATE TABLE IF NOT EXISTS `categories` (
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=4 ;
 
+-- Source: https://guidaphp.it/tutorial/form-registrazione-login-php-mysql?authuser=0
+
+CREATE TABLE `users` (
+    `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT,
+    `username` varchar(50) NOT NULL,
+    `password` varchar(255) NOT NULL,
+    PRIMARY KEY (`id`),
+    UNIQUE KEY `username` (`username`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci AUTO_INCREMENT=1;
+
 -- Dumping
 
 INSERT INTO `products` (`id`, `name`, `description`, `price`, `category_id`, `created`, `modified`) VALUES
@@ -49,3 +59,4 @@ INSERT INTO `categories` (`id`, `name`, `created`, `modified`) VALUES
 (1, 'Fashion', '2014-06-01 00:35:07', '2014-05-30 17:34:33'),
 (2, 'Electronics', '2014-06-01 00:35:07', '2014-05-30 17:34:33'),
 (3, 'Motors', '2014-06-01 00:35:07', '2014-05-30 17:34:54');
+
